@@ -1,24 +1,16 @@
 ---
 layout: page
-title: project 1
-description: a project with a background image
+title: DriveBC to PDF
+description: Produce maps using data scraped from DriveBC
 img: assets/img/12.jpg
 importance: 1
 category: work
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+This was the assigned final project for GIS 329, Principles of Programming. The assigned task required downloading data from DriveBC and converting into ArcGIS feature classes using ArcPy. I made use of Pandas to manipulate the scaped data before defining feature geometries. I also extended this project by adding script to export a set of layouts using arcpy.mp, based upon a pre-built layout.
+While the map outputs are relatively unimpressive, the Python script shows good attention to writing clear, easily interpreted code, with appropriate use of comments and print statements. 
 
 To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">

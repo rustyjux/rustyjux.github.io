@@ -2,7 +2,7 @@
 layout: page
 title: Trail maps
 description: Shiny new maps built 100% in QGIS
-img: assets/img/3.jpg
+img: assets/img/trailmap_thump.png
 importance: 2
 category: work
 ---

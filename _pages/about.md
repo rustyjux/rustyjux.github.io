@@ -2,6 +2,7 @@
 layout: about
 title: about
 permalink: /
+sort_menu: 1
 subtitle: Emerging Geospatial Professional 🌐. Adventurer 🗻🎿🚲. Crossword Nerd 📰🖊.
 
 profile:

@@ -4,7 +4,7 @@ title: a light in the dark
 description: predicting electrification from nighttime lights data using google earth engine
 img: assets/img/ntl_thumb.png
 importance: 1
-category: school
+category: work
 ---
 
 <i class='far fa-map'></i>

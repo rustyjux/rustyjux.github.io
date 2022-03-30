@@ -4,7 +4,8 @@ title: projects
 permalink: /projects/
 description: selected work
 nav: true
-display_categories: [work, school, fun]
+sort_menu: 2
+display_categories: [work, fun]
 horizontal: false
 ---
 

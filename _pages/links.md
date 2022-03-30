@@ -4,6 +4,7 @@ permalink: /links/
 title: links
 description: some of my favorite websites
 nav: true
+sort_menu: 3
 ---
 
 ## <i class='far fa-map'></i> geospatial

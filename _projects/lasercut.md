@@ -4,7 +4,7 @@ title: lasercut
 description: a simple two-layer design honouring a classic canoe route
 img: assets/img/lasercut_thumb1.jpg
 importance: 3
-category: school
+category: work
 ---
 
 The Big Trout Lake Loop is one of the most popular mid-length (~5 days) canoe routes in Algonquin Park, ON. Having paddling this trip close to a dozen times, I think I could probably pull it off without a map - but why not commemorate the route with a wood lasercut?

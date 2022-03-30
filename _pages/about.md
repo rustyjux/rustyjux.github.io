@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Emerging Geospatial Professional. Explorer. Crossword Nerd.
+subtitle: Emerging Geospatial Professional :globe_with_meridians:. Adventurer :mount_fuji: :ski: :bike: :bicyclist:. Crossword Nerd :newspaper:.
 
 profile:
   align: right

@@ -1,17 +1,22 @@
 ---
 layout: page
-title: project 4
-description: another without an image
-img:
+title: decoupling
+description: critical environmental thought in an esri story map
+img: /assets/img/decoupling_thump.jpeg
 importance: 3
-category: fun
+category: school
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+A poster for GIS Day 2021 related to the Millennium Development Goal of Ensuring Environmental Sustainability and related [Story Map](WEBLINK).
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+Stop reading and check out the Story Map!
+
+**More on this project:** Produced in ArcGIS Pro, this poster presents global carbon intensity data from 1990-2018. The change in carbon intensity is symbolized using scaled arrow symbols. This data suggests some degree of eco-economic decoupling is taking place around the world (in simple terms, "doing more with less"). To raise the question of the adequacy of recent decoupling trends to address the climate crisis, per capita greenhouse gas emissions data over the same period are also presented (yellow-green outline).
+
+**Publication specifications:** 18” x 24” print poster
+
+[High resolution PDF](https://gisday.sgrc.selkirk.ca/poster/gisdayposter_2021_russellvinegar.pdf) (1.1 MB)
+
 
     ---
     layout: page
@@ -59,22 +64,3 @@ You describe how you toiled, sweated, *bled* for your project, and then... you r
 <div class="caption">
     You can also have artistically styled 2/3 + 1/3 images, like these.
 </div>
-
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
-
-{% raw %}
-```html
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-```
-{% endraw %}

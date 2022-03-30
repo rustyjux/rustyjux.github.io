@@ -6,7 +6,7 @@ description: some of my favorite websites
 nav: true
 ---
 
-# geospatial
+## geospatial <i class='far fa-map'></i>
 
 - [Something About Maps](https://somethingaboutmaps.wordpress.com/) - the beautiful cartography of Daniel Huffman, with lots of good tutorials
 
@@ -20,7 +20,7 @@ nav: true
 
 - [John Nelson Styles Gallery](https://esri-styles.maps.arcgis.com/home/gallery.html?view=grid&sortOrder=desc&sortField=relevance&searchTerm=John%20Nelson) - snazzy ArcGIS styles
 
-# code
+## code <i class='far fa-code'></i>
 - [CheckiO](https://checkio.org/) - coding challenges/games in Python and TypeScript 
     - [My profile](https://py.checkio.org/user/russell.vinegar/) - how am I doing these days?
 
@@ -28,7 +28,7 @@ nav: true
 
 - [Towards Data Science](https://towardsdatascience.com/) - Medium publication for data science
 
-# crossword construction
+## crossword construction <i class='far fa-drafting-compass'></i>
 
 - [Crossword Puzzle Collaboration Directory](https://www.facebook.com/groups/1515117638602016/permalink/1990702721043503) - happy and helpful Facebook group
 

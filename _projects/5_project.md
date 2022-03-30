@@ -2,12 +2,14 @@
 layout: page
 title: a light in the dark
 description: predicting electrification from nighttime lights data using google earth engine
-img: assets/img/1.jpg
+img: assets/img/ntl_thumb.png
 importance: 1
 category: school
 ---
 
+<i class='far fa-map'></i>
 Every project has a beautiful feature showcase page.
+
 It's easy to include images in a flexible 3-column grid format.
 Make your photos 1/3, 2/3, or full width.
 

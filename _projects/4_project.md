@@ -2,7 +2,7 @@
 layout: page
 title: decoupling
 description: critical environmental thought in an esri story map
-img: /assets/img/decoupling_thump.jpeg
+img: /assets/img/decoupling_thumb.jpeg
 importance: 3
 category: school
 ---

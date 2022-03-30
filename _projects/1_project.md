@@ -2,7 +2,7 @@
 layout: page
 title: drivebc to pdf
 description: produce maps in arcpy from scraped data
-img: assets/img/drivebc_out.jpg
+img: assets/img/1.jpg
 importance: 1
 category: school
 ---

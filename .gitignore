@@ -8,4 +8,6 @@ _site
 .tweet-cache
 Gemfile.lock
 vendor
+osm_trails_20220311.geojson
+planning_tool.html
 

@@ -7,15 +7,13 @@ importance: 1
 category: work
 ---
 
-<i class='far fa-map'></i>
-Every project has a beautiful feature showcase page.
+Access to electricity is essential not just for lighting, communication, and basic home appliances, but also the potential for enterprise and greater development. Alas, over 500 million people lack access to electricity in sub-Saharan Africa. 
 
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+Compounding the challenge of expanding access to electricity is the lack of comprehensive data on the subject. To attempt to predict the extent of electrification based on Nighttime Lights data, I trained a supervised classification model. 
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+The most exciting part of this project for me was learning to use Google Earth Engine to easily wrangle large datasets and quickly perform analyses. This was my first foray into GEE, as well as my first time writing JavaScript.
 
-[GEE Code Editor](WEBLINK) 
+[GEE Code Editor](https://code.earthengine.google.com/de1392aeb6e9ea99f20c86c271f87742) (sign-in required)
 
 
 <div class="row">
@@ -34,7 +32,6 @@ To give your project a background in the portfolio page, just add the img tag to
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">

@@ -1,11 +1,11 @@
 ---
 layout: page
 title: drivebc to pdf
-description: produce maps in arcpy from scraped data
+description: produce a series of maps from scraped data with arcpy
 img: assets/img/1.jpg
 importance: 1
 category: work
-github: https://github.com/rustyjux/drive-bc
+# github: https://github.com/rustyjux/drive-bc
 ---
 
 This was the assigned final project for GIS 329, Principles of Programming. The assigned task required downloading data from DriveBC and converting into ArcGIS feature classes using ArcPy. I made use of Pandas to manipulate the scaped data before defining feature geometries. I also extended this project by adding script to export a set of layouts using arcpy.mp, based upon a pre-built layout.

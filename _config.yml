@@ -4,7 +4,7 @@
 
 title: blank # the website title (if blank, full name will be used instead)
 first_name: Russell
-middle_name: 
+middle_name: J.
 last_name: Vinegar
 email: russellvinegar [at] gmail.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
@@ -15,7 +15,7 @@ footer_text: >
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website  # add your own keywords or leave empty
 
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: ⚛  # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: ⚛️  # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://rustyjux.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/
@@ -56,7 +56,7 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 
 github_username: rustyjux # your GitHub user name
 gitlab_username: # your GitLab user name
-twitter_username: RussellVinegar # your Twitter handle
+twitter_username: @RussellVinegar # your Twitter handle
 linkedin_username: russell-vinegar-3a0890110 # your LinkedIn user name
 scholar_userid: # your Google Scholar ID
 orcid_id: # your ORCID ID

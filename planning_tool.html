@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Black Jack Trail Planning Tool</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.22/"></script> 
+    <script>
+        require([ 
+            "esri/Map", 
+        "esri/views/MapView", 
+        "esri/widgets/BasemapToggle", 
+        "esri/widgets/LayerList",
+        "esri/widgets/Fullscreen",
+        "esri/widgets/Legend",
+        "esri/widgets/Slider",
+        "esri/layers/WMSLayer",
+        "esri/layers/GeoJSONLayer"
+        ], (Map, MapView, BasemapToggle, LayerList, Fullscreen, Legend, Slider, WMSLayer, GeoJSONLayer) => {
+        
+            const map = new Map({
+          basemap: "osm"
+        });
+        
+        const contours = new WMSLayer({
+          url: "https://qgiscloud.com/rustyjux/planning_map_cloud/wms"
+          ,
+          sublayers: [
+            {
+              name: "contours2m"
+            }
+          ]
+        });
+    
+        map.add(contours);
+        
+        const trailRenderer = {
+          type: "simple", // autocasts as new SimpleRenderer()
+          symbol: {
+            type: "simple-line", // autocasts as new SimpleLineSymbol()
+            width: 2,
+            color: [252, 186, 3, .5]
+          }
+        };
+
+        const trails = new GeoJSONLayer({
+        url: "osm_trails_20220311.geojson",
+        renderer: trailRenderer,
+        name: "Trails"
+        });
+        map.add(trails);
+        
+               // Set view
+        const view = new MapView({
+            container: "viewDiv",
+            map: map,
+            zoom: 14,
+            center: [-117.841661,49.149603]
+         });
+        
+        // Allow toggling the basemap
+        const basemapToggle = new BasemapToggle({
+            view: view,
+            nextBasemap: "hybrid"
+        });
+
+        view.ui.add(basemapToggle,"bottom-right");
+
+
+        // Layer list w/ slider for updating a layer's opacity
+        const layerList = new LayerList({
+            view: view
+            ,listItemCreatedFunction: event => {
+                const item = event.item
+                const slider = new Slider({
+                min: 0,
+                max: 1,
+                steps: .05,
+                values: [0.5],
+                snapOnClickEnabled: true,
+                visibleElements: {labels: true,
+                                    rangeLabels: true}
+                });
+
+                item.panel = {
+                    content: slider,
+                    className: "esri-icon-sliders-horizontal",
+                    title: "Change layer opacity"
+                    };
+
+                slider.on("thumb-drag", (event) => {
+                    const { value } = event;
+                    item.layer.opacity = value;
+                    });
+                }
+                
+        });
+
+        view.ui.add(layerList, "top-right");
+
+        // Full screen button
+        fullscreen = new Fullscreen({
+            view: view
+            });
+        view.ui.add(fullscreen, "bottom-right");
+      
+        
+      });
+    </script> 
+    <style>
+        html,
+        body,
+        #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        }
+    </style>
+
+    </head>
+</html>
+ 
+ 
+<body>
+    <div id="viewDiv"></div>
+</body>

@@ -3,7 +3,7 @@ layout: page
 title: drivebc to pdf
 description: produce a series of maps from scraped data with arcpy
 img: assets/img/1.jpg
-importance: 1
+importance: 2
 category: work
 # github: https://github.com/rustyjux/drive-bc
 ---

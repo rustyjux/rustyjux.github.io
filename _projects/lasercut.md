@@ -3,7 +3,7 @@ layout: page
 title: lasercut
 description: two-layer design honouring a classic canoe route
 img: assets/img/lasercut_thumb1.jpg
-importance: 3
+importance: 4
 category: work
 ---
 

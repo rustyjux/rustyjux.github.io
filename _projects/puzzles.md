@@ -2,8 +2,9 @@
 layout: page
 title: puzzles
 description: some crosswords i've made
-img:
+img: assets/img/puzz.jpg
 importance: 4
+redirect: /blog/
 category: fun
 ---
 

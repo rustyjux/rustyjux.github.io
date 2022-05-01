@@ -1,7 +1,7 @@
 ---
 layout: page
 title: a light in the dark
-description: predicting electrification from nighttime lights data using google earth engine
+description: using google earth to predict electrification from nighttime lights data
 img: assets/img/ntl_thumb.png
 importance: 1
 category: work

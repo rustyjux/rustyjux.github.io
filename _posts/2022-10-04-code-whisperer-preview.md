@@ -10,7 +10,7 @@ Just got my preview code from Amazon - time for a quick test of [CodeWhisperer](
 
 ## Round one
 Yesterday I wrote this little function while working on a reporting script:
-![](assets/img/20221004083419.png)  
+![prompt](assets/img/20221004083419.png)  
 *Context: I was looking to generate a single file for each report. Exporting html to pdf would do this but brings in formatting issues (which is why I switched to html from the original .docx used in the script I modified). base64 allows you to embed image data directly.*
 
 I deleted my function from the code (~600 lines), and then provided this slightly clearer comment:

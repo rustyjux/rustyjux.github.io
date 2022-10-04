@@ -8,7 +8,7 @@ categories: programming
 ---
 *tl;dr - CodeWhisperer is a decent tool for a beginner/intermediate coder like myself to quickly write generic functions using common packages or APIs, and maybe to learn how to better comment and structure code too*
 
-I just got my preview code from Amazon and was excited to take [CodeWhisperer](https://blog.symops.com/2022/08/31/amazon-codewhisperer/) for a spin. Here's what happened.
+I got preview access and took [CodeWhisperer](https://blog.symops.com/2022/08/31/amazon-codewhisperer/) for a spin. Here's what happened.
 
 
 ## Round one
@@ -136,8 +136,10 @@ I got:
 {% highlight python %}
 arcpy.CreateFeatureclass_management("C:/Temp/donnees.gdb", "cats", "POLYGON", "", "", "", "date", "number of cats spotted")
 {% endhighlight %} 
-Hmm not so sure those last couple arguments would do what we wanted. Maybe if this was inside a function? (prompt was the same but I added ‘a function to’ at the start)
+Hmm not so sure those last couple arguments would do what we wanted. Maybe if this was inside a function?
 {% highlight python %}
+# a function to create a new polygon feature class, with fields for 'date' and 'number of cats spotted'
+
 def create_fc(fc_name, fc_type):
     # create a new feature class
     arcpy.CreateFeatureclass_management(r"C:\Users\bwc\Documents\ArcGIS\Projects\TestProject'","test_fc", fc_type)
@@ -152,12 +154,14 @@ Pretty nice. I like that it didn’t include all the optional arguments in `Crea
 ---
 
 ## How about jumping into a larger arcpy script?
+I tried adding this to the end of an existing geoprocessing script (~500 lines):
 {% highlight python %}
-# 
+# a function to project a feature class to Web Mercator before publishing
 {% endhighlight %} 
 Alas
 {% include figure.html path="assets/img/20221004084252.png" title="" class="img-fluid rounded z-depth-1" %}  
 What if we try in a new file? 
+
 Prompt:
 {% highlight python %}
 import arcpy
@@ -177,8 +181,9 @@ def projectFeatureClass(inFC, outFC):
     # return the projected feature class
     return outFC
 {% endhighlight %} 
-My first thought was that is no need to get the input spatial reference
-Flipping through a few suggestions, I found
+Hey that works. My first thought was that there no need to get the input spatial reference.
+
+Flipping through a few suggestions, I found:
 {% highlight python %}
 def project_fc(fc, out_fc):
     """
@@ -210,4 +215,6 @@ def project_fc(fc, out_fc):
     # return
     return
 {% endhighlight %} 
-The very rigorous style used here is a little funny because of the inclusion of blank return statements. But wait - now I see why there was the inclination to check out in the initial spatial reference (duh!). Learning from AI… this is interesting. 
+Aha - now I see why there was the inclination to check out in the initial spatial reference (duh!). Learning from AI… this is interesting.
+
+The very rigorous style used here is a little funny because of the inclusion of blank return statements. But maybe the more advanced logic is part of the package. It seems like small variations in the prompt, even coming down to styling, can lead to more or less functional code suggestions.

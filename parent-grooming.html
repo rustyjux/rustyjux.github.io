@@ -1,0 +1,116 @@
+<html>
+<script>
+    function timedRefresh(timeoutPeriod) {
+        setTimeout("location.reload(true);",timeoutPeriod);
+    }
+    
+    window.onload = timedRefresh(1800000);
+</script>
+<style>
+    body {
+        overflow: hidden;
+    }
+    
+    .frames-wrapper {
+        /* width: 1960px; */
+        max-width: 100%;
+        position: relative;
+        margin: 0 auto;
+        /* display: table; */
+        border: 0px solid pink;
+        border: 0px solid black;  
+    }
+
+    .frame-box {
+        float: left;
+        /* display: inline-block; */
+        /* height: 200px; */
+        width: 32%;
+        /* margin: 10px; */
+        -ms-overflow-style: none;
+        overflow: hidden;
+        resize:none;
+    }
+    .frame-box::-webkit-scrollbar {
+        display: none;
+    }
+    .frame-box + .frame-box{
+        border-left: 5px solid #1056bd;
+    }
+
+    .responsive-iframe-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        padding-top: 100%;
+        /* padding-top: 56%; */
+        
+
+        /* &.large {
+            padding-top: 100%;
+        } */
+        /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    }
+
+    .container-left {
+        float: left;
+        width: 30%;
+    }
+    
+    .container-right {
+        float: right;
+        width: 34%;
+        /* margin-top: -438px; */
+    }
+
+    .responsive-iframe {
+        /* position: absolute; */
+        z-index: 1;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .overlay {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        }
+</style>
+
+<div class="frames-wrapper">
+
+    <div class="frame-box" style="width:35.2%">
+        <iframe class="responsive-iframe" scrolling="no"
+            src="https://nordic-pulse.com/ski-areas/CA/BC/Black-Jack-Ski-Club/map?embed=true&header=false&footer=false"></iframe>
+        <!-- <div class="overlay">
+            <p>HELOOOO</p>
+        </div> -->
+    </div>
+    <div class="frame-box">
+        <iframe class="responsive-iframe" scrolling="no"
+            src="https://nordic-pulse.com/ski-areas/CA/BC/Black-Jack-Ski-Club/trails?embed=true&header=false&footer=false&sortBy=diff"></iframe>
+    </div>
+    <div class="frame-box">
+        <iframe id="frame-right" class="responsive-iframe" scrolling="no" src="child-table2.html"></iframe>
+        <!-- <iframe class="responsive-iframe" scrolling="no" src="https://nordic-pulse.com/ski-areas/CA/BC/Black-Jack-Ski-Club/trails?embed=true&header=false&footer=false#HannaCreekBiathlon"></iframe> -->
+    </div>
+</div>
+
+<!-- <script>
+        function navigate() {
+            document.getElementById("frame-right").src
+                = "child-table2.html#HannaCreekBiathlon";
+        }
+
+    window.onload = navigate();
+</script> -->
+</html>

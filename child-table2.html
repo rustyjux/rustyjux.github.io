@@ -1,0 +1,88 @@
+<html>
+
+<style>
+  body {
+      overflow: hidden;
+  }
+  
+  .frames-wrapper {
+      /* width: 1960px; */
+      max-width: 100%;
+      position: relative;
+      margin: 0 auto;
+      /* display: table; */
+      border: 0px solid pink;
+      border: 0px solid black;  
+  }
+
+  .frame-box {
+      float: left;
+      /* display: inline-block; */
+      /* height: 200px; */
+      width: 90%;
+      /* margin: 10px; */
+      -ms-overflow-style: none;
+      overflow: hidden;
+      resize: horizontal;
+  }
+  .frame-box::-webkit-scrollbar {
+      display: none;
+  }
+  .frame-box + .frame-box{
+      border-left: 5px solid #1056bd;
+  }
+
+  .responsive-iframe-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      padding-top: 100%;
+      /* padding-top: 56%; */
+      
+
+      /* &.large {
+          padding-top: 100%;
+      } */
+      /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  }
+
+  .container-left {
+      float: left;
+      width: 30%;
+  }
+  
+  .container-right {
+      float: right;
+      width: 34%;
+      /* margin-top: -438px; */
+  }
+
+  .responsive-iframe {
+      /* position: absolute; */
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+  }
+</style>
+
+<body onLoad="window.scrollTo(0,875)">
+
+<!-- <body onLoad="scrollOver()"></body> -->
+<iframe src=https://nordic-pulse.com/ski-areas/CA/BC/Black-Jack-Ski-Club/trails?embed=true&header=false&footer=false&sortBy=diff&legend=false"
+    height=10000 width=100% frameborder=0 marginheight=0 marginwidth=0 scrolling=no></iframe>
+
+</body>
+
+
+<script>
+    function scrollOver() {
+      const element = document.getElementById("HannaCreekBiathlon");
+      element.scrollIntoView();
+    }
+</script>
+</html>

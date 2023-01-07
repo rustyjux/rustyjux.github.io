@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="https://rustyjux.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://rustyjux.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-01-07T01:52:30+00:00</updated><id>https://rustyjux.github.io/feed.xml</id><title type="html">blank</title><subtitle>My personal website and portfolio.
+</subtitle><entry><title type="html">learning from AI</title><link href="https://rustyjux.github.io/blog/2022/code-whisperer-preview2/" rel="alternate" type="text/html" title="learning from AI" /><published>2022-10-04T00:00:00+00:00</published><updated>2022-10-04T00:00:00+00:00</updated><id>https://rustyjux.github.io/blog/2022/code-whisperer-preview2</id><content type="html" xml:base="https://rustyjux.github.io/blog/2022/code-whisperer-preview2/"><![CDATA[<p><em>tl;dr - CodeWhisperer is a decent tool for a beginner/intermediate coder like myself to quickly write generic functions using common packages or APIs, and maybe to learn how to better comment and structure code too</em></p>
+
+<p>I got preview access and took <a href="https://blog.symops.com/2022/08/31/amazon-codewhisperer/">CodeWhisperer</a> for a spin. Here’s what happened.</p>
+
+<h2 id="round-one">Round one</h2>
+<p>Yesterday I wrote this little function while working on a script that generates HTML reports from field data captured with Esri’s <a href="https://www.esri.com/en-us/arcgis/products/arcgis-survey123/overview?rsource=%2Fen-us%2Farcgis%2Fproducts%2Fsurvey123%2Foverview">Survey123</a>:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># take img path an return an html image tag with base64 data
+</span><span class="k">def</span> <span class="nf">j64</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="s">''</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s">''</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">image_file</span><span class="p">:</span>
+        <span class="n">encoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">image_file</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="s">'&lt;img src="data:image/jpg;base64, '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">encoded_string</span><span class="p">)[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="sa">f</span><span class="s">'" width="</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s">" height="</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s">" /&gt;'</span>
+    <span class="k">return</span> <span class="n">img</span></code></pre></figure>
+
+<p>Some context: I was looking to generate a single html file for each report to simplify archiving. Reports include images and I was looking to embed them. Exporting html to pdf would do this but brings in formatting issues (which is why I switched to html from the original .docx output used in the script I modified) and further dependency requirements (potentially problematic when running on our Jenkins server). <a href="https://codepen.io/jamiekane/pen/YayWOa">base64</a> allows you to embed image binary data directly with a giant text string.</p>
+
+<p>I deleted my function from the existing code, and then provided this slightly clearer comment as a prompt for CW:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># a function that takes an image path as an argument and returns a base64 version of the image</span></code></pre></figure>
+
+<p>I called for suggestions (ALT+C) and got:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">encode_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">img_file</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">img_file</span><span class="p">.</span><span class="n">read</span><span class="p">())</span></code></pre></figure>
+
+<p>Nailed it. Getting more specific:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># a function that takes an image path as an argument and returns an html image
+# containing the base64 version of the image
+</span>
+<span class="k">def</span> <span class="nf">img_to_html</span><span class="p">(</span><span class="n">img_path</span><span class="p">):</span>
+    <span class="s">"""
+    Takes an image path as an argument and returns an html image
+    containing the base64 version of the image
+    """</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">img_file</span><span class="p">:</span>
+        <span class="n">encoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">img_file</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">return</span> <span class="s">'&lt;img src="data:image/jpeg;base64, {}"&gt;'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">encoded_string</span><span class="p">.</span><span class="n">decode</span><span class="p">())</span> </code></pre></figure>
+
+<p>Super. This actually improved on my code by using a method I wasn’t aware of - <code class="language-plaintext highlighter-rouge">decode()</code> - to get rid of a couple little tags which I had stumbled over yesterday and resolved via string indexing.</p>
+
+<p>And one more ask:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># a function that takes an image path and dimensions as arguments and returns an html image
+# containing the base64 version of the image that can be used in a web page
+</span>
+<span class="k">def</span> <span class="nf">make_img_tag</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+    <span class="c1"># open the image
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">image_file</span><span class="p">:</span>
+        <span class="n">encoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">image_file</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="c1"># create the html tag
+</span>    <span class="n">img_tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'&lt;img src="data:image/jpeg;base64,</span><span class="si">{</span><span class="n">encoded_string</span><span class="p">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s">" width="</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s">" height="</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s">"/&gt;'</span>
+    <span class="k">return</span> <span class="n">img_tag</span></code></pre></figure>
+
+<p>Pretty much identical with my code. All of these were the first suggestion CW provided, though you can easily flip through more suggestions with the arrow keys. Flipping through the suggestions shows some interesting differences in commenting and style. This could be due to the variation within my script or the training data. How about f-strings every time, please?</p>
+
+<p>Taking it a step beyond what I had initially written (only jpg in my project):</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># a function that takes an image path and dimensions as arguments and returns an html image
+# containing the base64 version of the image and correct image type that can be used in a web page
+</span>
+<span class="k">def</span> <span class="nf">make_img_tag</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+    <span class="c1"># open the image
+</span>    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+    <span class="c1"># set the image dimensions
+</span>    <span class="n">img</span><span class="p">.</span><span class="n">thumbnail</span><span class="p">((</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+    <span class="c1"># convert the image to base64
+</span>    <span class="n">img_str</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">img</span><span class="p">.</span><span class="n">tobytes</span><span class="p">())</span>
+    <span class="c1"># create the html image tag
+</span>    <span class="n">img_tag</span> <span class="o">=</span> <span class="s">'&lt;img src="data:image/png;base64, {}"&gt;'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">img_str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img_tag</span> </code></pre></figure>
+
+<p>No dice. At first. But then I added (jpeg or png) to the comment, flipped through a few suggestions, and voila:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># a function that takes an image path and dimensions as arguments and returns an html image
+# containing the base64 version of the image and correct image type (jpeg or png) that can be used in a web page
+</span>
+<span class="k">def</span> <span class="nf">make_img_tag</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+    <span class="c1"># get the file extension
+</span>    <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">img_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># make the base64 version of the image
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">image_file</span><span class="p">:</span>
+        <span class="n">encoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">image_file</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="c1"># make the html image tag
+</span>    <span class="n">img_tag</span> <span class="o">=</span> <span class="s">'&lt;img src="data:image/{};base64,{}" width="{}" height="{}"/&gt;'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">ext</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+                                                                                  <span class="n">encoded_string</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span>
+                                                                                  <span class="n">width</span><span class="p">,</span>
+                                                                                  <span class="n">height</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img_tag</span></code></pre></figure>
+
+<p>I guess I will have to forgive the <code class="language-plaintext highlighter-rouge">format()</code> method. Maybe if I had always used f-strings in my script, then the suggestion would have done so as well?</p>
+
+<hr />
+
+<h2 id="how-about-some-arcpy">How about some arcpy?</h2>
+
+<p>The little bit of reading I did on CW explains that it is trained on a “variety of data sources including Amazon open source code.” Since geospatial and arcpy are a little more niche, I thought it would be interesting to see how CW performed here.</p>
+
+<p>I started with this comment block in a new file:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="s">'''
+Open an ArcGIS Pro project and create a new feature class
+'''</span></code></pre></figure>
+
+<p>Which led CW to give me these lines one at a time:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">arcpy</span>
+
+<span class="c1"># Set the workspace
+</span>
+<span class="n">arcpy</span><span class="p">.</span><span class="n">env</span><span class="p">.</span><span class="n">workspace</span> <span class="o">=</span> <span class="sa">r</span><span class="s">"C:\Users\bwc\Documents\ArcGIS\Projects\TestProject'
+
+# Create a new feature class
+
+arcpy.CreateFeatureclass_management(r"</span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">bwc</span>\<span class="n">Documents</span>\<span class="n">ArcGIS</span>\<span class="n">Projects</span>\<span class="n">TestProject</span><span class="s">'","test_fc", "POINT", "", "", "", "DISABLED", "DISABLED", "")</span></code></pre></figure>
+
+<p>Not too shabby. Repeating the process it was funny to see the different filler filepaths that were suggested.</p>
+
+<p>Let’s try and be more specific, modifying only the last comment:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># Create a new polygon feature class, with fields for 'date' and 'number of cats spotted'</span></code></pre></figure>
+
+<p>I got:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">arcpy</span><span class="p">.</span><span class="n">CreateFeatureclass_management</span><span class="p">(</span><span class="s">"C:/Temp/donnees.gdb"</span><span class="p">,</span> <span class="s">"cats"</span><span class="p">,</span> <span class="s">"POLYGON"</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="s">"date"</span><span class="p">,</span> <span class="s">"number of cats spotted"</span><span class="p">)</span></code></pre></figure>
+
+<p>Hmm not so sure those last couple arguments would do what we wanted. Maybe if this was inside a function?</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># a function to create a new polygon feature class, with fields for 'date' and 'number of cats spotted'
+</span>
+<span class="k">def</span> <span class="nf">create_fc</span><span class="p">(</span><span class="n">fc_name</span><span class="p">,</span> <span class="n">fc_type</span><span class="p">):</span>
+    <span class="c1"># create a new feature class
+</span>    <span class="n">arcpy</span><span class="p">.</span><span class="n">CreateFeatureclass_management</span><span class="p">(</span><span class="sa">r</span><span class="s">"C:\Users\bwc\Documents\ArcGIS\Projects\TestProject'"</span><span class="p">,</span><span class="s">"test_fc"</span><span class="p">,</span> <span class="n">fc_type</span><span class="p">)</span>
+    <span class="c1"># add fields
+</span>    <span class="n">arcpy</span><span class="p">.</span><span class="n">AddField_management</span><span class="p">(</span><span class="s">"test_fc"</span><span class="p">,</span> <span class="s">"date"</span><span class="p">,</span> <span class="s">"TEXT"</span><span class="p">)</span>
+    <span class="n">arcpy</span><span class="p">.</span><span class="n">AddField_management</span><span class="p">(</span><span class="s">"test_fc"</span><span class="p">,</span> <span class="s">"number_of_cats_spotted"</span><span class="p">,</span> <span class="s">"SHORT"</span><span class="p">)</span>
+    <span class="c1"># return the path to the new feature class
+</span>    <span class="k">return</span> <span class="n">arcpy</span><span class="p">.</span><span class="n">Describe</span><span class="p">(</span><span class="s">"test_fc"</span><span class="p">).</span><span class="n">catalogPath</span></code></pre></figure>
+
+<p>Pretty nice. I like that it didn’t include all the optional arguments in <code class="language-plaintext highlighter-rouge">CreateFeatureclass()</code>. But why not use <code class="language-plaintext highlighter-rouge">DATE</code> as the field type for a field called date?</p>
+
+<hr />
+
+<h2 id="how-about-jumping-into-a-larger-arcpy-script">How about jumping into a larger arcpy script?</h2>
+<p>I tried adding this to the end of an existing geoprocessing script (~500 lines):</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1"># a function to project a feature class to Web Mercator before publishing</span></code></pre></figure>
+
+<p>Alas</p>
+<figure>
+
+  <picture>
+    <source media="(max-width: 480px)" srcset="/assets/img/20221004084252-480.webp" />
+    <source media="(max-width: 800px)" srcset="/assets/img/20221004084252-800.webp" />
+    <source media="(max-width: 1400px)" srcset="/assets/img/20221004084252-1400.webp" />
+    <!-- Fallback to the original file -->
+    <img class="img-fluid rounded z-depth-1" src="/assets/img/20221004084252.png" title="" />
+
+  </picture>
+
+</figure>
+
+<p>What if we try in a new file?</p>
+
+<p>Prompt:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">arcpy</span>
+
+<span class="c1"># a function to project a feature class to Web Mercator before publishing</span></code></pre></figure>
+
+<p>Suggestion:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">projectFeatureClass</span><span class="p">(</span><span class="n">inFC</span><span class="p">,</span> <span class="n">outFC</span><span class="p">):</span>
+    <span class="c1"># get the coordinate system of the input feature class
+</span>    <span class="n">inDesc</span> <span class="o">=</span> <span class="n">arcpy</span><span class="p">.</span><span class="n">Describe</span><span class="p">(</span><span class="n">inFC</span><span class="p">)</span>
+    <span class="n">inCS</span> <span class="o">=</span> <span class="n">inDesc</span><span class="p">.</span><span class="n">spatialReference</span>
+    <span class="c1"># get the coordinate system of the output feature class
+</span>    <span class="n">outCS</span> <span class="o">=</span> <span class="n">arcpy</span><span class="p">.</span><span class="n">SpatialReference</span><span class="p">(</span><span class="mi">3857</span><span class="p">)</span>
+    <span class="c1"># project the input feature class to Web Mercator
+</span>    <span class="n">arcpy</span><span class="p">.</span><span class="n">Project_management</span><span class="p">(</span><span class="n">inFC</span><span class="p">,</span> <span class="n">outFC</span><span class="p">,</span> <span class="n">outCS</span><span class="p">)</span>
+    <span class="c1"># return the projected feature class
+</span>    <span class="k">return</span> <span class="n">outFC</span></code></pre></figure>
+
+<p>Hey that works. My first thought was that there no need to get the input spatial reference.</p>
+
+<p>Flipping through a few suggestions, I found:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">project_fc</span><span class="p">(</span><span class="n">fc</span><span class="p">,</span> <span class="n">out_fc</span><span class="p">):</span>
+    <span class="s">"""
+    Project a feature class to Web Mercator.
+
+    Parameters
+    ----------
+    fc : str
+        Path to the input feature class.
+    out_fc : str
+        Path to the output feature class.
+    sr : str
+        Spatial reference of the output feature class.
+
+    Returns
+    -------
+    None
+
+    """</span>
+    <span class="c1"># get the coordinate system of the input feature class
+</span>    <span class="n">in_sr</span> <span class="o">=</span> <span class="n">arcpy</span><span class="p">.</span><span class="n">Describe</span><span class="p">(</span><span class="n">fc</span><span class="p">).</span><span class="n">spatialReference</span>
+    <span class="c1"># if the input coordinate system is already Web Mercator, return
+</span>    <span class="k">if</span> <span class="n">in_sr</span><span class="p">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">"WGS_1984_Web_Mercator_Auxiliary_Sphere"</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="c1"># otherwise, project the feature class to Web Mercator
+</span>    <span class="n">arcpy</span><span class="p">.</span><span class="n">Project_management</span><span class="p">(</span><span class="n">fc</span><span class="p">,</span> <span class="n">out_fc</span><span class="p">)</span>
+    <span class="c1"># set the coordinate system of the output feature class to Web Mercator
+</span>    <span class="n">arcpy</span><span class="p">.</span><span class="n">DefineProjection_management</span><span class="p">(</span><span class="n">out_fc</span><span class="p">)</span>
+    <span class="c1"># return
+</span>    <span class="k">return</span></code></pre></figure>
+
+<p>Aha - now I see why there was the inclination to check out in the initial spatial reference (duh!). Learning from AI… this is interesting.</p>
+
+<p>The very rigorous style used here is a little funny because of the inclusion of blank return statements. But maybe the more advanced logic is part of the package. It seems like small variations in the prompt, even coming down to styling, can lead to more or less functional code suggestions.</p>]]></content><author><name></name></author><category term="programming" /><category term="favorites" /><summary type="html"><![CDATA[taking CodeWhisperer for a spin]]></summary></entry><entry><title type="html">ye olde crossworde puzzles</title><link href="https://rustyjux.github.io/blog/2021/puzzle-dump/" rel="alternate" type="text/html" title="ye olde crossworde puzzles" /><published>2021-04-07T00:00:00+00:00</published><updated>2021-04-07T00:00:00+00:00</updated><id>https://rustyjux.github.io/blog/2021/puzzle-dump</id><content type="html" xml:base="https://rustyjux.github.io/blog/2021/puzzle-dump/"><![CDATA[<p>Sometime in 2019 I was introduced to crossword puzzles via the New Yorker crossword (those puzzles in the Metro tabloid don’t count 🧐). Sometime shortly thereafter my partner and I started doing the NYT crossword, which really helped make each day exciting and fresh through the pandemic (seriously). It wasn’t long until I had the chutzpah to take a crack at making my own puzzles.</p>
+
+<p>Here are some of those puzzles. My favorites are marked with a star ⭐.</p>
+
+<ul>
+  <li>Genre Entendre - <a href="assets/puzz/1 - Genre Entendre - 2020.pdf">PDF</a></li>
+  <li>Themeless - <a href="assets/puzz/2 - Themeless - 2020-08-10.pdf">PDF</a></li>
+  <li>LaDiDa - <a href="assets/puzz/3 - LadDiDa - 2020-10-16.pdf">PDF</a></li>
+  <li>A Walk in the Woods - <a href="assets/puzz/4 - A Walk in the Woods - 2020-12-05.pdf">PDF</a></li>
+  <li>⭐ Themeless - <a href="assets/puzz/5 - Themeless - AA14.pdf">PDF</a> - <a href="assets/puzz/5 - Themeless - Clean.pdf">PDF (Clean Version)</a> - <a href="https://crosshare.org/crosswords/8x5b1ZZZBkMfQeMOAzpt/themeless-5-aa-14">Play Online/Solution</a></li>
+  <li>⭐ My Goodness - <a href="assets/puzz/6 - My Goodness - 2021-05-15.pdf">PDF</a> - <a href="https://crosshare.org/crosswords/wnCiscLAmjOR6bWcPK6L/my-goodness">Play Online/Solution</a> (also embedded below)</li>
+  <li>Themeless (collabo with Dan) - <a href="assets/puzz/7 - Themeless w Dan - 2021-09-12.pdf">PDF</a> - <a href="https://crosshare.org/crosswords/A3abGgY449hi030f7l4t/themeless-sept-12">Play Online/Solution</a></li>
+</ul>
+
+<iframe style="height: 90vh; width: 100%;" src="https://crosshare.org/embed/wnCiscLAmjOR6bWcPK6L/sksugRay2vZ6KwyPD4DaKXrsRMw1" frameborder="0" allowfullscreen="true" allowtransparency="true"></iframe>]]></content><author><name></name></author><category term="puzzles" /><category term="favorites" /><summary type="html"><![CDATA[puzzles of yore]]></summary></entry></feed>

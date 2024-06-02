@@ -10,7 +10,7 @@ Sometime in 2019 I was introduced to crossword puzzles via the New Yorker crossw
 
 Here are some of those puzzles. My favorites are marked with a star ⭐.
 
-- Genre Entendre - [PDF](assets/puzz/1 - Genre Entendre - 2020.pdf)
+- Genre Entendre - [PDF]({{ site.baseurl }}/assets/puzz/1 - Genre Entendre - 2020.pdf)
 - Themeless - [PDF](assets/puzz/2 - Themeless - 2020-08-10.pdf)
 - LaDiDa - [PDF](assets/puzz/3 - LadDiDa - 2020-10-16.pdf) 
 - A Walk in the Woods - [PDF](assets/puzz/4 - A Walk in the Woods - 2020-12-05.pdf)
